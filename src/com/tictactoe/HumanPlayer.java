@@ -1,5 +1,6 @@
 package com.tictactoe;
 
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class HumanPlayer extends Player{
@@ -44,6 +45,32 @@ public class HumanPlayer extends Player{
 			charNonX = identityLetterOptions[0];
 		}
 		return choice.contains("x") || choice.contains("X") ? charX : charNonX;
+	}
+
+	@Override
+	public int makeMove() {
+		checkBoard();
+		System.out.println(name+" chance to play your identity letter is '"+identityLetter+"'");
+		return readNumber();
+	}
+	
+	private int readNumber() {
+		int number;
+		while(true) {
+			try {
+				number = scanner.nextInt();
+				break;
+			}catch(InputMismatchException e) {
+				System.out.println("Please enter number : ");
+			}finally {
+				scanner.nextLine();
+			}
+		}
+		return number;
+	}
+
+	@Override
+	protected void winSequences() {	
 	}
 
 }

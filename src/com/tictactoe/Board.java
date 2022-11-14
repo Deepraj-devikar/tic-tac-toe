@@ -25,7 +25,7 @@ public class Board {
 		this.players[1] = player2;
 		this.playersIdentityLetters = new char[2];
 		this.playersIdentityLetters[0] = 'O';
-		this.playersIdentityLetters[0] = 'X';
+		this.playersIdentityLetters[1] = 'X';
 		player1.setBoard(this);
 		player2.setBoard(this);
 	}
@@ -100,6 +100,14 @@ public class Board {
 		return boardArray;
 	}
 	
+	private void makeMove(int location, int movingPlayerIndex) {
+		if(1 <= location && location <= 9) {
+			if(!Character.isLetter(boardArray[location])) {
+				boardArray[location] = playersIdentityLetters[movingPlayerIndex];
+			}
+		}
+	}
+	
 	/*
 	 * board game will start here board will ask to random player to choose identity letter
 	 * from specified identity letter options
@@ -107,6 +115,10 @@ public class Board {
 	public void play() {
 		int playerIndex = (int) Math.floor(Math.random() * 10) % 2;
 		setPlayerIdentityLetter(playerIndex, players[playerIndex].chooseIdentityLetter(playersIdentityLetters));
+		players[0].noteIdentityLetter(playersIdentityLetters[0]);
+		players[1].noteIdentityLetter(playersIdentityLetters[1]);
+		makeMove(players[0].makeMove(), 0);
+		makeMove(players[1].makeMove(), 1);
 		System.out.println(showCurrentBoard());
 	}
 	

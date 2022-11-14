@@ -9,6 +9,8 @@ public abstract class Player {
 	protected char[] boardArray;
 	// name of player
 	protected String name;
+	// player have to know arranging sequence to win
+	protected int[][] winSequences;
 	
 	/**
 	 * create player with players name
@@ -49,5 +51,17 @@ public abstract class Player {
 	 * @return identityLetter
 	 */
 	public abstract char chooseIdentityLetter(char[] identityLetterOptions);
+	
+	/**
+	 * give move to board 
+	 * move will be any location from 0 to 9
+	 * @return move
+	 */
+	public abstract int makeMove();
+	
+	/*
+	 * player will write win sequences according to his knowledge
+	 */
+	protected abstract void winSequences();
 	
 }
