@@ -4,7 +4,9 @@ public class TicTacToeGame {
 
 	public static void main(String[] args) {
 		System.out.println("Welcome to tic tac toe game");
-		Board board = new Board();
+		Player pravin = new HumanPlayer("Pravin");
+		Player robo = new ComputerPlayer("Robo");
+		Board board = new Board(pravin, robo);
 		board.showBoard();
 	}
 
