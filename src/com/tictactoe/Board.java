@@ -30,6 +30,27 @@ public class Board {
 		player2.setBoard(this);
 	}
 	
+	private int otherPlayerIndex(int playerIndex) {
+		return (playerIndex + 1) % 2;
+	}
+	
+	/**
+	 * set identity letter of player to specified indexed player
+	 * and another identity letter to another player
+	 * 
+	 * @param playerIndex
+	 * @param playerIdentityLetter
+	 */
+	private void setPlayerIdentityLetter(Integer playerIndex,Character playerIdentityLetter) {
+		if(playerIdentityLetter == 'X' || playerIdentityLetter == 'x') {
+			playersIdentityLetters[playerIndex] = 'X';
+			playersIdentityLetters[otherPlayerIndex(playerIndex)] = 'O';
+		} else {
+			playersIdentityLetters[playerIndex] = 'O';
+			playersIdentityLetters[otherPlayerIndex(playerIndex)] = 'X';
+		}
+	}
+	
 	/*
 	 * show board in human understandable form
 	 */
@@ -69,5 +90,18 @@ public class Board {
 	
 	public char[] getCurrentBoard() {
 		return boardArray;
+	}
+	
+	/*
+	 * board game will start here board will ask to random player to choose identity letter
+	 * from specified identity letter options
+	 */
+	public void play() {
+		int playerIndex = (int) Math.floor(Math.random() * 10) % 2;
+		setPlayerIdentityLetter(playerIndex, players[playerIndex].chooseIdentityLetter(playersIdentityLetters));
+	}
+	
+	public char[] getPlayerIdentityLetter() {
+		return playersIdentityLetters;
 	}
 }

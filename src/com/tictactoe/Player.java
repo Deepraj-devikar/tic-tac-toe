@@ -42,4 +42,12 @@ public abstract class Player {
 	 * player will get information regarding board
 	 */
 	protected abstract void checkBoard();
+	
+	/**
+	 * choose identity letter for him from identity letter options given
+	 * @param identityLetterOptions
+	 * @return identityLetter
+	 */
+	public abstract char chooseIdentityLetter(char[] identityLetterOptions);
+	
 }

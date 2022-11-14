@@ -8,6 +8,7 @@ public class TicTacToeGame {
 		Player robo = new ComputerPlayer("Robo");
 		Board board = new Board(pravin, robo);
 		board.showBoard();
+		board.play();
 	}
 
 }

@@ -18,4 +18,12 @@ public class ComputerPlayer extends Player{
 		boardArray = board.getCurrentBoard();
 	}
 
+	/*
+	 * randomly choose identity letter from identity letter options given by board
+	 */
+	@Override
+	public char chooseIdentityLetter(char[] identityLetterOptions) {
+		return identityLetterOptions[(int) (Math.floor(Math.random() * 10) % 2)];
+	}
+
 }
