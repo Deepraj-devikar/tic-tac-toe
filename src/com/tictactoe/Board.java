@@ -58,6 +58,10 @@ public class Board {
 		System.out.println(showCurrentBoard()+"\n\n"+showCurrentPlayOptionBoard());
 	}
 	
+	/**
+	 * information of board in human understandable form
+	 * @return information of board
+	 */
 	public String showCurrentBoard() {
 		String result = "Current Board : \n";
 		for(int i = 0; i < 3; i++) {
@@ -71,6 +75,10 @@ public class Board {
 		return result;
 	}
 	
+	/**
+	 * information of board in human understandable form so player can make correct move
+	 * @return information of board for choose play option
+	 */
 	public String showCurrentPlayOptionBoard() {
 		String result = "Current Play Option On Board : \n";
 		for(int i = 0; i < 3; i++) {
@@ -99,6 +107,7 @@ public class Board {
 	public void play() {
 		int playerIndex = (int) Math.floor(Math.random() * 10) % 2;
 		setPlayerIdentityLetter(playerIndex, players[playerIndex].chooseIdentityLetter(playersIdentityLetters));
+		System.out.println(showCurrentBoard());
 	}
 	
 	public char[] getPlayerIdentityLetter() {
