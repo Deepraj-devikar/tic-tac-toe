@@ -1,6 +1,7 @@
 package com.tictactoe;
 
 import java.util.Hashtable;
+import java.util.Map.Entry;
 import java.util.Scanner;
 
 import com.tictactoe.Board.Coin;
@@ -165,6 +166,7 @@ public class ComputerPlayer extends Player{
 				maxPosition = position;
 			}
 		}
+		
 		return maxPosition;
 	}
 
