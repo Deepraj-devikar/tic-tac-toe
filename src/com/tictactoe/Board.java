@@ -7,6 +7,8 @@ public class Board {
 	private Player[] players;
 	// players identification letters for tic tac toe game according to index of players
 	private char[] playersIdentityLetters;
+	// move is valid or invalid
+	public enum Move{VALID, INVALID};
 	
 	/**
 	 * creates board with 2 players
@@ -123,11 +125,12 @@ public class Board {
 	 * @param location
 	 * @param movingPlayerIndex
 	 */
-	private void makeMove(Integer location, Integer movingPlayerIndex) {
+	private Move makeMove(Integer location, Integer movingPlayerIndex) {
 		if(location != 0) {
 			try {
 				if(!Character.isLetter(boardArray[location])) {
 					boardArray[location] = playersIdentityLetters[movingPlayerIndex];
+					return Move.VALID;
 				}	
 			} catch(ArrayIndexOutOfBoundsException exception) {
 				System.out.println("move location should be in range from 1 to 9 and player index should be 0 or 1");
@@ -135,6 +138,7 @@ public class Board {
 		} else {
 			System.out.println("move location should be in range from 1 to 9 and player index should be 0 or 1");
 		}
+		return Move.INVALID;
 	}
 	
 	/*
@@ -146,8 +150,8 @@ public class Board {
 		setPlayerIdentityLetter(playerIndex, players[playerIndex].chooseIdentityLetter(playersIdentityLetters));
 		players[0].noteIdentityLetter(playersIdentityLetters[0]);
 		players[1].noteIdentityLetter(playersIdentityLetters[1]);
-		makeMove(players[0].makeMove(), 0);
-		makeMove(players[1].makeMove(), 1);
+		while(makeMove(players[0].makeMove(), 0).equals(Move.INVALID));
+		while(makeMove(players[1].makeMove(), 1).equals(Move.INVALID));
 		System.out.println(showCurrentBoard());
 	}
 	
