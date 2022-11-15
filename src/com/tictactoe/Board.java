@@ -30,6 +30,13 @@ public class Board {
 		player2.setBoard(this);
 	}
 	
+	/**
+	 * player index will be either 0 or one because board game has only 2 players
+	 * if player index is 0 then other player index will be 1 and vice versa 
+	 * 
+	 * @param playerIndex
+	 * @return otherPlayerIndex
+	 */
 	private int otherPlayerIndex(int playerIndex) {
 		return (playerIndex + 1) % 2;
 	}
@@ -38,16 +45,24 @@ public class Board {
 	 * set identity letter of player to specified indexed player
 	 * and another identity letter to another player
 	 * 
+	 * if index is not 0 or 1 then it will keep player identity index default
+	 * that are player identity letter of player who is at index 0 is 'O'
+	 * and player identity letter of player who is at index 1 is 'X'
+	 * 
 	 * @param playerIndex
 	 * @param playerIdentityLetter
 	 */
 	private void setPlayerIdentityLetter(Integer playerIndex,Character playerIdentityLetter) {
-		if(playerIdentityLetter == 'X' || playerIdentityLetter == 'x') {
-			playersIdentityLetters[playerIndex] = 'X';
-			playersIdentityLetters[otherPlayerIndex(playerIndex)] = 'O';
-		} else {
-			playersIdentityLetters[playerIndex] = 'O';
-			playersIdentityLetters[otherPlayerIndex(playerIndex)] = 'X';
+		try {
+			if(playerIdentityLetter == 'X' || playerIdentityLetter == 'x') {
+				playersIdentityLetters[playerIndex] = 'X';
+				playersIdentityLetters[otherPlayerIndex(playerIndex)] = 'O';
+			} else {
+				playersIdentityLetters[playerIndex] = 'O';
+				playersIdentityLetters[otherPlayerIndex(playerIndex)] = 'X';
+			}	
+		} catch(ArrayIndexOutOfBoundsException exception) {
+			System.out.println("Player index should be 0 or 1.");
 		}
 	}
 	
@@ -100,11 +115,25 @@ public class Board {
 		return boardArray;
 	}
 	
-	private void makeMove(int location, int movingPlayerIndex) {
-		if(1 <= location && location <= 9) {
-			if(!Character.isLetter(boardArray[location])) {
-				boardArray[location] = playersIdentityLetters[movingPlayerIndex];
+	/**
+	 * make move of player which player index we are getting in parameters to that location 
+	 * move is possible when location is in the range from 1 to 9 and moving player index is 0 or 1
+	 * and also location is not already occupied by any of the player
+	 * 
+	 * @param location
+	 * @param movingPlayerIndex
+	 */
+	private void makeMove(Integer location, Integer movingPlayerIndex) {
+		if(location != 0) {
+			try {
+				if(!Character.isLetter(boardArray[location])) {
+					boardArray[location] = playersIdentityLetters[movingPlayerIndex];
+				}	
+			} catch(ArrayIndexOutOfBoundsException exception) {
+				System.out.println("move location should be in range from 1 to 9 and player index should be 0 or 1");
 			}
+		} else {
+			System.out.println("move location should be in range from 1 to 9 and player index should be 0 or 1");
 		}
 	}
 	

@@ -47,11 +47,19 @@ public class HumanPlayer extends Player{
 		return choice.contains("x") || choice.contains("X") ? charX : charNonX;
 	}
 
+	/*
+	 * board will ask for play move move location should be in range from 1 to 9
+	 */
 	@Override
 	public int makeMove() {
 		checkBoard();
 		System.out.println(name+" chance to play your identity letter is '"+identityLetter+"'");
-		return readNumber();
+		int location;
+		do {
+			System.out.println("Select move location on board in range from 1 to 9");
+			location = readNumber();
+		} while(location < 1 || 9 < location);
+		return location;
 	}
 	
 	private int readNumber() {

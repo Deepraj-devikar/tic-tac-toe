@@ -6,11 +6,33 @@ import java.util.Scanner;
 public class ComputerPlayer extends Player{
 	private Scanner scanner;
 	
+	/**
+	 * attact decision will be based on our attact count on any win sequence and opponents attact count on that sequence
+	 * and will return his decision in form of boolean variable 
+	 * 
+	 * @author Deepraj Devikar
+	 *
+	 */
 	@FunctionalInterface
 	private interface AttactDecision{
 		boolean decision(int ourAttactsCount, int opponentAttactsCount);
 	}
 	
+	/**
+	 * attact will have two attact decisions that are attact to win or attact to block opponent to win
+	 * 
+	 * ATTACT TO WIN:
+	 * we can win in only one move when our attact count on win sequence is 2 and opponent attact count is 0
+	 * so we have to make only one move on this win sequence and we will win
+	 * 
+	 * ATTACT TO BLOCK:
+	 * when our attact count is 0 on win sequence and opponent attact count is 2 
+	 * so player make one on this win sequence and he can win
+	 * that time have to block him from winning in one move only by playing one move on that win sequence
+	 * 
+	 * @author Deepraj Devikar
+	 *
+	 */
 	private class Attact{
 		AttactDecision attactToWin = (ourAttactsCount, opponentAttactsCount) -> ourAttactsCount == 2 && opponentAttactsCount == 0;
 		AttactDecision attactToBlock = (ourAttactsCount, opponentAttactsCount) -> ourAttactsCount == 0 && opponentAttactsCount == 2;
@@ -43,7 +65,10 @@ public class ComputerPlayer extends Player{
 	}
 
 	/*
-	 * 
+	 * computer player will decide his move at which location
+	 * 1) first he will see can he win in only one move if yes then he will play at that location and win
+	 * 2) second he will see opponent winning in only one move if yes then he will block opponent from winning in one move only
+	 * 3) third he will make list of all location based on priority and will play higher priority move
 	 */
 	@Override
 	public int makeMove() {
@@ -65,6 +90,12 @@ public class ComputerPlayer extends Player{
 		return scanner.nextInt();
 	}
 
+	/**
+	 * make attact on the basis of attact decision that is attact to win or attact to block
+	 * 
+	 * @param attactDecision
+	 * @return
+	 */
 	private int makeAttact(AttactDecision attactDecision) {
 		for(int winSequenceNumber = 0; winSequenceNumber < winSequences.length; winSequenceNumber++) {
 			int ourAttactsCount = 0;
@@ -86,6 +117,9 @@ public class ComputerPlayer extends Player{
 		return 0;
 	}
 	
+	/*
+	 * make attact on the basis of locations priority
+	 */
 	private int makeAttact() {
 		Hashtable<Integer, int[]> pointsCount = new Hashtable<Integer, int[]>();
 		for(int i = 1; i <= 9; i++) {
@@ -132,6 +166,9 @@ public class ComputerPlayer extends Player{
 		return maxPosition;
 	}
 
+	/*
+	 * write down win sequences
+	 */
 	@Override
 	protected void winSequences() {
 		winSequences = new int[8][3];

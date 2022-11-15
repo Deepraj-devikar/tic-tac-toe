@@ -66,6 +66,12 @@ public class PlayerIdentityLetterTest {
 			{1, 'o', 'X', 'O'},
 			{1, 'a', 'X', 'O'},
 			{1, 'A', 'X', 'O'},
+			{2, 'X', 'O', 'X'},
+			{2, 'x', 'O', 'X'},
+			{2, 'O', 'O', 'X'},
+			{2, 'o', 'O', 'X'},
+			{2, 'a', 'O', 'X'},
+			{2, 'A', 'O', 'X'},
 		});
 	}
 	
