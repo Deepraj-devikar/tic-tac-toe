@@ -1,14 +1,16 @@
 package com.tictactoe;
 
 public class Board {
+	// move is valid or invalid
+	public enum Move{VALID, INVALID};	
+	public enum Coin{HEAD, TAIL}
+	
 	// board information and all players moves will be store in board array 
 	private char[] boardArray;
 	// players for the tic tac toe game
 	private Player[] players;
 	// players identification letters for tic tac toe game according to index of players
 	private char[] playersIdentityLetters;
-	// move is valid or invalid
-	public enum Move{VALID, INVALID};
 	
 	/**
 	 * creates board with 2 players
@@ -141,18 +143,41 @@ public class Board {
 		return Move.INVALID;
 	}
 	
+	/**
+	 * will ask one player for heads or tails
+	 * @return index of player who will play first
+	 */
+	private int toss() {
+		for(int playerNumber = 0; playerNumber < players.length; playerNumber++) {
+			if(players[playerNumber] instanceof HumanPlayer) {
+				return Coin.values()[(int) Math.floor(Math.random() * 10) % 2]
+						.toString()
+						.equals(players[playerNumber].headsOrTails()) 
+						? playerNumber 
+								: otherPlayerIndex(playerNumber);
+			}
+		}
+		return Coin.values()[(int) Math.floor(Math.random() * 10) % 2]
+				.toString()
+				.equals(players[0].headsOrTails()) 
+				? 0 
+						: 1;
+	}
+	
 	/*
 	 * board game will start here board will ask to random player to choose identity letter
 	 * from specified identity letter options
 	 */
-	public void play() {
-		int playerIndex = (int) Math.floor(Math.random() * 10) % 2;
+	public void play() {		
+		int playerIndex = toss();
+		System.out.println(players[playerIndex].getName()+" have won the toss and will play first");
 		setPlayerIdentityLetter(playerIndex, players[playerIndex].chooseIdentityLetter(playersIdentityLetters));
-		players[0].noteIdentityLetter(playersIdentityLetters[0]);
-		players[1].noteIdentityLetter(playersIdentityLetters[1]);
-		while(makeMove(players[0].makeMove(), 0).equals(Move.INVALID));
-		while(makeMove(players[1].makeMove(), 1).equals(Move.INVALID));
-		System.out.println(showCurrentBoard());
+		players[playerIndex].noteIdentityLetter(playersIdentityLetters[playerIndex]);
+		players[otherPlayerIndex(playerIndex)].noteIdentityLetter(playersIdentityLetters[otherPlayerIndex(playerIndex)]);
+		while(makeMove(players[playerIndex].makeMove(), playerIndex).equals(Move.INVALID));
+		playerIndex = otherPlayerIndex(playerIndex);
+		while(makeMove(players[playerIndex].makeMove(), playerIndex).equals(Move.INVALID));
+		showBoard();
 	}
 	
 	public char[] getPlayerIdentityLetter() {

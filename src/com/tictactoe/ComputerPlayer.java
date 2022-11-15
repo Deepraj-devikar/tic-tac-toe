@@ -3,6 +3,8 @@ package com.tictactoe;
 import java.util.Hashtable;
 import java.util.Scanner;
 
+import com.tictactoe.Board.Coin;
+
 public class ComputerPlayer extends Player{
 	private Scanner scanner;
 	
@@ -193,5 +195,10 @@ public class ComputerPlayer extends Player{
 		winSequences[7][0] = 3;
 		winSequences[7][1] = 5;
 		winSequences[7][2] = 7;
+	}
+
+	@Override
+	public String headsOrTails() {
+		return Coin.values()[(int) (Math.floor(Math.random() * 10) % 2)].toString();
 	}
 }

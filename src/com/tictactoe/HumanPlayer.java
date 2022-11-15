@@ -3,6 +3,8 @@ package com.tictactoe;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+import com.tictactoe.Board.Coin;
+
 public class HumanPlayer extends Player{
 	// scanner for getting move instruction from user as console input
 	Scanner scanner;
@@ -79,6 +81,17 @@ public class HumanPlayer extends Player{
 
 	@Override
 	protected void winSequences() {	
+	}
+
+	@Override
+	public String headsOrTails() {
+		System.out.println("Heads or Tails : ");
+		System.out.println("0 for HEAD");
+		System.out.println("1 for TAIL");
+		System.out.println(name+" enter your option here : ");
+		System.out.println("Note:- if you entered other than these options then will assume as HEAD");
+		int choice = readNumber() == 1 ? 1 : 0;
+		return Coin.values()[choice].toString();
 	}
 
 }

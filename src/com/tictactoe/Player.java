@@ -64,4 +64,9 @@ public abstract class Player {
 	 */
 	protected abstract void winSequences();
 	
+	/*
+	 * player will say head or tails what he wants
+	 */
+	public abstract String headsOrTails();
+	
 }
