@@ -271,4 +271,8 @@ public class Board {
 	public char[] getPlayerIdentityLetter() {
 		return playersIdentityLetters;
 	}
+	
+	public boolean isCompleted() {
+		return isCompleted;
+	}
 }
